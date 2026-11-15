@@ -38,7 +38,7 @@ jobs:
         uses: actions/upload-artifact@v6
         with:
           name: wheels-linux-${{ matrix.arch }}
-          path: dist
+          path: target/wheels
 
   musllinux:
     name: musllinux (${{ matrix.arch }})
@@ -64,7 +64,7 @@ jobs:
         uses: actions/upload-artifact@v6
         with:
           name: wheels-musllinux-${{ matrix.arch }}
-          path: dist
+          path: target/wheels
 
   sdist:
     runs-on: ubuntu-latest
