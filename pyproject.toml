@@ -5,6 +5,8 @@ build-backend = "maturin"
 [project]
 name = "proxmox-backup-client"
 requires-python = ">=3.8"
+license = "AGPL-3.0"
+license-files = ["LICENSE"]
 classifiers = [
     "Programming Language :: Rust",
     "Programming Language :: Python :: Implementation :: CPython",
