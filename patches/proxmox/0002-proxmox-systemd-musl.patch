@@ -1,0 +1,65 @@
+diff --git a/proxmox-systemd/src/sys.rs b/proxmox-systemd/src/sys.rs
+index ea2b6061..24dfa52a 100644
+--- a/proxmox-systemd/src/sys.rs
++++ b/proxmox-systemd/src/sys.rs
+@@ -9,6 +9,7 @@ pub struct sd_id128_t {
+     pub bytes: [u8; 16],
+ }
+ 
++#[cfg(target_env = "gnu")]
+ #[link(name = "systemd")]
+ unsafe extern "C" {
+     pub fn sd_journal_stream_fd(
+@@ -32,6 +33,52 @@ unsafe extern "C" {
+     pub fn sd_id128_get_machine_app_specific(app_id: sd_id128_t, ret: *mut sd_id128_t) -> c_int;
+ }
+ 
++#[cfg(not(target_env = "gnu"))]
++pub unsafe fn sd_journal_stream_fd(
++    _identifier: *const c_uchar,
++    _priority: c_int,
++    _level_prefix: c_int,
++) -> c_int {
++    -libc::ENOSYS
++}
++
++#[cfg(not(target_env = "gnu"))]
++pub unsafe fn sd_notify(_unset_environment: c_int, _state: *const c_char) -> c_int {
++    -libc::ENOSYS
++}
++
++#[cfg(not(target_env = "gnu"))]
++pub unsafe fn sd_notify_barrier(_unset_environment: c_int, _timeout: u64) -> c_int {
++    -libc::ENOSYS
++}
++
++#[cfg(not(target_env = "gnu"))]
++pub unsafe fn sd_pid_notify_with_fds(
++    _pid: libc::pid_t,
++    _unset_environment: c_int,
++    _state: *const c_char,
++    _fds: *const c_int,
++    _n_fds: c_uint,
++) -> c_int {
++    -libc::ENOSYS
++}
++
++#[cfg(not(target_env = "gnu"))]
++pub unsafe fn sd_listen_fds_with_names(
++    _unset_environment: c_int,
++    _names: *mut *mut *mut c_char,
++) -> c_int {
++    -libc::ENOSYS
++}
++
++#[cfg(not(target_env = "gnu"))]
++pub unsafe fn sd_id128_get_machine_app_specific(
++    _app_id: sd_id128_t,
++    _ret: *mut sd_id128_t,
++) -> c_int {
++    -libc::ENOSYS
++}
++
+ pub fn check_call(ret: c_int) -> Result<c_int, io::Error> {
+     if ret < 0 {
+         Err(io::Error::from_raw_os_error(-ret))

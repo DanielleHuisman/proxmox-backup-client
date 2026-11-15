@@ -1,7 +1,7 @@
 FROM rust:alpine
 
 RUN apk add --no-cache \
-    acl-dev fuse3-dev gcc git make musl-dev openssl-dev patchelf perl pipx pkgconfig python3 zlib-dev
+    acl-dev fuse3-dev gcc git make musl-dev openssl-dev patchelf perl pipx pkgconfig python3 util-linux-dev zlib-dev
 
 ARG USERNAME=dev
 ARG USER_UID=1000
