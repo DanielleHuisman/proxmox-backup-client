@@ -1,0 +1,13 @@
+diff --git a/proxmox-sys/src/fs/mod.rs b/proxmox-sys/src/fs/mod.rs
+index 6cda6326..9c377a6a 100644
+--- a/proxmox-sys/src/fs/mod.rs
++++ b/proxmox-sys/src/fs/mod.rs
+@@ -170,7 +170,7 @@ pub fn fs_info<P: ?Sized + nix::NixPath>(path: &P) -> nix::Result<FileSystemInfo
+         available: stat.f_bavail * block_size,
+         total_inodes: stat.f_files,
+         free_inodes: stat.f_ffree,
+-        fs_type: stat.f_type,
++        fs_type: stat.f_type as i64,
+         fs_id: stat.f_fsid,
+     })
+ }

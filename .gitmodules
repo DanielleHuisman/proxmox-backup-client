@@ -1,0 +1,6 @@
+[submodule "vendor/proxmox"]
+	path = vendor/proxmox
+	url = https://git.proxmox.com/git/proxmox.git
+[submodule "vendor/proxmox-backup"]
+	path = vendor/proxmox-backup
+	url = https://git.proxmox.com/git/proxmox-backup.git

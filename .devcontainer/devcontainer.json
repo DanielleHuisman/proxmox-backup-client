@@ -1,0 +1,21 @@
+{
+    "name": "proxmox-backup-client",
+    "build": {
+        "dockerfile": "../Dockerfile",
+        "context": ".."
+    },
+    "workspaceFolder": "/workspace",
+    "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
+    "remoteUser": "dev",
+    "updateRemoteUserUID": true,
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "rust-lang.rust-analyzer",
+                "tamasfe.even-better-toml",
+                "ms-python.python"
+            ]
+        }
+    },
+    "postCreateCommand": "./scripts/apply-vendor-patches.sh && cargo fetch"
+}

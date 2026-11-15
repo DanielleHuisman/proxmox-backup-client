@@ -1,0 +1,13 @@
+diff --git a/pbs-client/src/pxar/create.rs b/pbs-client/src/pxar/create.rs
+index b1266b1fc..818c6e591 100644
+--- a/pbs-client/src/pxar/create.rs
++++ b/pbs-client/src/pxar/create.rs
+@@ -79,7 +79,7 @@ fn detect_fs_type(fd: RawFd) -> Result<i64, Errno> {
+     Errno::result(res)?;
+     let fs_stat = unsafe { fs_stat.assume_init() };
+
+-    Ok(fs_stat.f_type)
++    Ok(fs_stat.f_type as i64)
+ }
+
+ fn strip_ascii_whitespace(line: &[u8]) -> &[u8] {

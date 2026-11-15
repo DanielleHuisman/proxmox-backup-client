@@ -1,0 +1,12 @@
+diff --git a/pbs-tools/src/lib.rs b/pbs-tools/src/lib.rs
+index dc55366b6..01ec87a24 100644
+--- a/pbs-tools/src/lib.rs
++++ b/pbs-tools/src/lib.rs
+@@ -23,6 +23,7 @@ pub mod sha;
+ /// running backup jobs. We measured a reduction by a factor of 10-20 in experiments and see much
+ /// less erratic behavior in the overall's runtime RSS size.
+ pub fn setup_libc_malloc_opts() {
++    #[cfg(target_env = "gnu")]
+     unsafe {
+         libc::mallopt(libc::M_MMAP_THRESHOLD, 4096 * 32);
+     }
