@@ -31,7 +31,7 @@ jobs:
       - name: Apply vendor patches
         run: ./scripts/apply-vendor-patches.sh
       - name: Build container image
-        run: docker build -t pbc-glibc -f Dockerfile .
+        run: docker build --build-arg USER_UID="$(id -u)" --build-arg USER_GID="$(id -g)" -t pbc-glibc -f Dockerfile .
       - name: Build wheel
         run: docker run --rm -v "$PWD":/workspace -w /workspace pbc-glibc maturin build --release
       - name: Upload wheel
@@ -57,7 +57,7 @@ jobs:
       - name: Apply vendor patches
         run: ./scripts/apply-vendor-patches.sh
       - name: Build container image
-        run: docker build -t pbc-musl -f Dockerfile.musl .
+        run: docker build --build-arg USER_UID="$(id -u)" --build-arg USER_GID="$(id -g)" -t pbc-musl -f Dockerfile.musl .
       - name: Build wheel
         run: docker run --rm -v "$PWD":/workspace -w /workspace pbc-musl maturin build --release
       - name: Upload wheel
